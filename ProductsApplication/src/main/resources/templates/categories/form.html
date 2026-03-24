@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container">
+    <header class="page-header">
+        <h1>Nueva categoría</h1>
+        <a class="btn btn-secondary" th:href="@{/categories}">Volver</a>
+    </header>
+
+    <section class="card">
+        <form th:action="@{/categories}" th:object="${categoryForm}" method="post" class="form-layout">
+            <div class="field">
+                <label for="name">Nombre</label>
+                <input id="name" type="text" th:field="*{name}">
+                <small class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

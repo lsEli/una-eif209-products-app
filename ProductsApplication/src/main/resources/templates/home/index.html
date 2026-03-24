@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head('Inicio')}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container">
+    <section class="card">
+        <h1>Bienvenido a Product App</h1>
+        <p>Proyecto completo con Spring MVC, Thymeleaf, Security, JPA y PostgreSQL.</p>
+
+        <div class="actions">
+            <a class="btn btn-primary" th:href="@{/products}">Ir a productos</a>
+            <a class="btn btn-secondary" th:href="@{/categories}" sec:authorize="hasRole('ADMIN')">Administrar categorías</a>
+            <a class="btn btn-secondary" th:href="@{/tags}" sec:authorize="hasRole('ADMIN')">Administrar etiquetas</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

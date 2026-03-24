@@ -10,8 +10,42 @@ body {
 }
 
 .container {
-    width: min(1000px, 92%);
+    width: min(1100px, 92%);
     margin: 2rem auto;
+}
+
+.navbar {
+    background: #111827;
+    color: white;
+    padding: 0.85rem 0;
+}
+
+.navbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links,
+.nav-user,
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-links a,
+.nav-user span {
+    color: white;
+    text-decoration: none;
 }
 
 .page-header {
@@ -27,6 +61,7 @@ body {
     border: 1px solid #dbe3ee;
     border-radius: 12px;
     padding: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .table {
@@ -39,16 +74,7 @@ body {
     border-bottom: 1px solid #e5e7eb;
     padding: 0.85rem;
     text-align: left;
-}
-
-.actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.inline-form {
-    display: inline;
+    vertical-align: top;
 }
 
 .form-layout {
@@ -61,10 +87,17 @@ body {
     gap: 0.35rem;
 }
 
-.field input {
+.field input,
+.field select,
+.field textarea {
     padding: 0.7rem 0.8rem;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
+}
+
+.field textarea {
+    min-height: 110px;
+    resize: vertical;
 }
 
 .error {
@@ -80,6 +113,11 @@ body {
     border: none;
     cursor: pointer;
     font-size: 0.95rem;
+}
+
+.btn-sm {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.85rem;
 }
 
 .btn-primary {
@@ -102,7 +140,63 @@ body {
     color: white;
 }
 
+.inline-form {
+    display: inline;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    background-color: #eef2ff;
+    color: #1e40af;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
 .detail-grid {
     display: grid;
     gap: 0.8rem;
+}
+
+.search-form {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.checkbox-group {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.alert-success {
+    background: #dcfce7;
+    color: #166534;
 }

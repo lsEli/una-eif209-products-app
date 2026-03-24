@@ -1,20 +1,13 @@
 package cr.ac.una.productsapplication.repositories;
 
 import cr.ac.una.productsapplication.models.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface IProductRepository {
-    List<Product> findAll();
+public interface IProductRepository extends JpaRepository<Product, Long> {
 
-    List<Product> findAllActive();
+    List<Product> findByActiveTrue();
 
-    Optional<Product> findById(Long id);
-
-    List<Product> findByNameContaining(String name);
-
-    Product save(Product product);
-
-    Product update(Product product);
+    List<Product> findByActiveTrueAndNameContainingIgnoreCase(String name);
 }

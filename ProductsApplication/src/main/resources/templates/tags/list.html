@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container">
+    <header class="page-header">
+        <h1>Etiquetas</h1>
+        <a class="btn btn-primary" th:href="@{/tags/new}">Nueva etiqueta</a>
+    </header>
+
+    <section class="card">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tag : ${tags}">
+                <td th:text="${tag.id}">1</td>
+                <td th:text="${tag.name}">Gaming</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

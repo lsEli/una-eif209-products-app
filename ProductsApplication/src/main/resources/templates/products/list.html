@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head(${pageTitle})}"></head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head(${pageTitle})}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <main class="container">
     <header class="page-header">
         <h1>Productos</h1>
-        <a class="btn btn-primary" th:href="@{/products/new}">Nuevo producto</a>
+        <a class="btn btn-primary" th:href="@{/products/new}" sec:authorize="hasRole('ADMIN')">Nuevo producto</a>
     </header>
+
+    <section class="card">
+        <form th:action="@{/products}" method="get" class="search-form">
+            <input type="text" name="name" placeholder="Buscar por nombre" th:value="${searchTerm}">
+            <button type="submit" class="btn btn-secondary">Buscar</button>
+            <a class="btn btn-secondary" th:href="@{/products}">Limpiar</a>
+        </form>
+    </section>
 
     <section class="card">
         <table class="table">
@@ -14,29 +24,33 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Categoría</th>
                 <th>Precio base</th>
                 <th>Precio final</th>
-                <th>Moneda</th>
+                <th>Etiquetas</th>
                 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${#lists.isEmpty(products)}">
-                <td colspan="6">No hay productos registrados.</td>
+                <td colspan="7">No hay productos registrados.</td>
             </tr>
 
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}">1</td>
                 <td th:text="${product.name}">Laptop</td>
-                <td th:text="${product.price}">1000</td>
+                <td th:text="${product.categoryName}">Laptops</td>
+                <td th:text="${product.basePrice}">1000</td>
                 <td th:text="${product.finalPrice}">1130</td>
-                <td th:text="${product.currency}">CRC</td>
+                <td>
+                    <span class="badge" th:each="tagName : ${product.tagNames}" th:text="${tagName}">Gaming</span>
+                </td>
                 <td class="actions">
-                    <a class="btn btn-secondary" th:href="@{/products/{id}(id=${product.id})}">Ver</a>
-                    <a class="btn btn-warning" th:href="@{/products/{id}/edit(id=${product.id})}">Editar</a>
+                    <a class="btn btn-secondary btn-sm" th:href="@{/products/{id}(id=${product.id})}">Ver</a>
+                    <a class="btn btn-warning btn-sm" th:href="@{/products/{id}/edit(id=${product.id})}" sec:authorize="hasRole('ADMIN')">Editar</a>
 
-                    <form th:action="@{/products/{id}/delete(id=${product.id})}" method="post" class="inline-form">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <form th:action="@{/products/{id}/delete(id=${product.id})}" method="post" class="inline-form" sec:authorize="hasRole('ADMIN')">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>
             </tr>

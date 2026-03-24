@@ -1,50 +1,46 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head(${pageTitle})}"></head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head(${pageTitle})}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <main class="container">
     <header class="page-header">
         <h1>Detalle de producto</h1>
         <div class="actions">
             <a class="btn btn-secondary" th:href="@{/products}">Volver</a>
-            <a class="btn btn-warning" th:href="@{/products/{id}/edit(id=${product.id})}">Editar</a>
+            <a class="btn btn-warning" th:href="@{/products/{id}/edit(id=${product.id})}" sec:authorize="hasRole('ADMIN')">Editar</a>
         </div>
     </header>
 
     <section class="card detail-grid">
+        <div><strong>ID:</strong> <span th:text="${product.id}">1</span></div>
+        <div><strong>Nombre:</strong> <span th:text="${product.name}">Laptop</span></div>
+        <div><strong>Categoría:</strong> <span th:text="${product.categoryName}">Laptops</span></div>
+        <div><strong>Precio base:</strong> <span th:text="${product.basePrice}">1000</span></div>
+        <div><strong>Precio final:</strong> <span th:text="${product.finalPrice}">1130</span></div>
+        <div><strong>Moneda:</strong> <span th:text="${product.currency}">CRC</span></div>
+        <div><strong>Activo:</strong> <span th:text="${product.active ? 'Sí' : 'No'}">Sí</span></div>
+        <div><strong>Creado en:</strong> <span th:text="${product.createdAt}">2026-03-10</span></div>
+
         <div>
-            <strong>ID:</strong>
-            <span th:text="${product.id}">1</span>
+            <strong>Etiquetas:</strong>
+            <span class="badge" th:each="tagName : ${product.tagNames}" th:text="${tagName}">Gaming</span>
         </div>
 
         <div>
-            <strong>Nombre:</strong>
-            <span th:text="${product.name}">Laptop</span>
+            <strong>Fabricante:</strong>
+            <span th:text="${product.manufacturer != null ? product.manufacturer : 'N/D'}">Lenovo</span>
         </div>
 
         <div>
-            <strong>Precio base:</strong>
-            <span th:text="${product.price}">1000</span>
+            <strong>Garantía:</strong>
+            <span th:text="${product.warrantyInfo != null ? product.warrantyInfo : 'N/D'}">12 meses</span>
         </div>
 
         <div>
-            <strong>Precio final:</strong>
-            <span th:text="${product.finalPrice}">1130</span>
-        </div>
-
-        <div>
-            <strong>Moneda:</strong>
-            <span th:text="${product.currency}">CRC</span>
-        </div>
-
-        <div>
-            <strong>Activo:</strong>
-            <span th:text="${product.active ? 'Sí' : 'No'}">Sí</span>
-        </div>
-
-        <div>
-            <strong>Creado en:</strong>
-            <span th:text="${product.createdAt}">2026-03-10</span>
+            <strong>Descripción:</strong>
+            <span th:text="${product.description != null ? product.description : 'N/D'}">Descripción</span>
         </div>
     </section>
 </main>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<nav th:fragment="navbar" class="navbar">
+    <div class="container navbar-inner">
+        <a class="brand" th:href="@{/}">Product App</a>
+
+        <div class="nav-links">
+            <a th:href="@{/products}">Productos</a>
+            <a th:href="@{/categories}" sec:authorize="hasRole('ADMIN')">Categorías</a>
+            <a th:href="@{/tags}" sec:authorize="hasRole('ADMIN')">Etiquetas</a>
+        </div>
+
+        <div class="nav-user">
+            <span sec:authorize="isAuthenticated()">
+                Usuario: <strong sec:authentication="name">user</strong>
+            </span>
+
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <button type="submit" class="btn btn-danger btn-sm">Salir</button>
+            </form>
+
+            <a class="btn btn-primary btn-sm" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
