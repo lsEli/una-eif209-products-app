@@ -4,6 +4,7 @@ import cr.ac.una.productsapplication.dtos.form.TagForm;
 import cr.ac.una.productsapplication.dtos.view.TagOptionView;
 import cr.ac.una.productsapplication.models.Tag;
 import cr.ac.una.productsapplication.repositories.ITagRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +20,13 @@ public class TagService {
         this.repository = repository;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional(readOnly = true)
     public List<TagOptionView> findAll() {
         return repository.findAll().stream().map(t -> new TagOptionView(t.getId(), t.getName())).toList();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void create(TagForm form) {
         Tag tag = new Tag(form.getName().trim());
         repository.save(tag);

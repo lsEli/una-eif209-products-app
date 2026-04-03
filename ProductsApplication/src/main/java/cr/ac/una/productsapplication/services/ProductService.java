@@ -38,17 +38,20 @@ public class ProductService {
         this.appProperties = appProperties;
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @Transactional(readOnly = true)
     public List<ProductView> findAll() {
         return productRepository.findByActiveTrue().stream().map(this::toView).toList();
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @Transactional(readOnly = true)
     public ProductView findById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         return toView(product);
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @Transactional(readOnly = true)
     public List<ProductView> searchByName(String name) {
         return productRepository.findByActiveTrueAndNameContainingIgnoreCase(name.trim()).stream().map(this::toView).toList();
@@ -114,6 +117,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional(readOnly = true)
     public ProductForm buildFormForEdit(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));

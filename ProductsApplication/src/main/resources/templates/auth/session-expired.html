@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Sesión expirada')}"></head>
+<body>
+<main class="container">
+    <section class="card">
+        <h1>Sesión expirada</h1>
+        <p>Tu sesión ya no es válida o fue reemplazada por otra sesión.</p>
+        <a class="btn btn-primary" th:href="@{/login?expired}">Iniciar sesión de nuevo</a>
+    </section>
+</main>
+</body>
+</html>

@@ -15,4 +15,9 @@ public class AuthViewController {
     public String accessDenied() {
         return "auth/access-denied";
     }
+
+    @GetMapping("/session-expired")
+    public String sessionExpired() {
+        return "auth/session-expired";
+    }
 }

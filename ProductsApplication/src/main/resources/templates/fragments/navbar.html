@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <nav th:fragment="navbar" class="navbar">
     <div class="container navbar-inner">
         <a class="brand" th:href="@{/}">Product App</a>
 
         <div class="nav-links">
-            <a th:href="@{/products}">Productos</a>
+            <a th:href="@{/products}" sec:authorize="hasAnyRole('USER','ADMIN')">Productos</a>
             <a th:href="@{/categories}" sec:authorize="hasRole('ADMIN')">Categorías</a>
             <a th:href="@{/tags}" sec:authorize="hasRole('ADMIN')">Etiquetas</a>
         </div>
